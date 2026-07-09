@@ -15,7 +15,12 @@ const HomePage = () => {
       try {
         const res = await api.get('/notes')
         console.log(res.data);
-        setNotes(res.data);
+        if (Array.isArray(res.data)) {
+          setNotes(res.data);
+        } else {
+          setNotes([]);
+          toast.error("Unexpected response from API");
+        }
         setIsRateLimited(false);
       } catch (error) {
         console.log("Error in fetching notes")
