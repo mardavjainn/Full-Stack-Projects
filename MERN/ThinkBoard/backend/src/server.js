@@ -19,6 +19,14 @@ app.use(rateLimiter);
 // });
 
 
+app.get("/", (req, res) => {
+    res.status(200).json({ message: "Server is running!" });
+});
+
+app.get("/api", (req, res) => {
+    res.status(200).json({ message: "Welcome to the ThinkBoard API!" });
+});
+
 app.use("/api/notes", notesRoutes);
 connectDB().then(()=>{
     app.listen(port, () => {
