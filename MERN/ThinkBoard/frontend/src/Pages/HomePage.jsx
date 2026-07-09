@@ -4,7 +4,7 @@ import  RateLimitedUI  from "../Components/RateLimitedUI";
 import axios from "axios";
 import toast from "react-hot-toast";
 const HomePage=()=>{
-  const [isRateLimited,setIsRateLimited]=useState(true);
+  const [isRateLimited,setIsRateLimited]=useState(false);
   const [notes,setNotes]=useState([])
   const [loading,setLoading]=useState(true)
   useEffect(()=>{
