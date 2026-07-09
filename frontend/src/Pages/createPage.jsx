@@ -1,6 +1,6 @@
 // import axios from "axios";
 import api from "../lib/axios";
-import{ArrowLeftIcon, icons} from "lucide-react";
+import { ArrowLeftIcon } from "lucide-react";
 import {useState} from "react";
 import toast from "react-hot-toast";
 import {Link, useNavigate} from "react-router-dom";
