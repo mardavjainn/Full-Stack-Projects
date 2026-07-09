@@ -1,140 +1,73 @@
-# 🧠 ThinkBoard
+# ThinkBoard
 
-ThinkBoard is a modern, responsive, and secure note-taking web application built on the **MERN (MongoDB, Express, React, Node.js)** stack. Featuring a sleek, premium dark-themed interface enhanced with **Tailwind CSS** and **DaisyUI**, it supports full CRUD capabilities, smooth micro-animations, and bulletproof rate limiting powered by **Upstash Redis**.
-
----
-
-## ✨ Features
-
-- **🚀 Complete CRUD Operations**: Create, read, update, and delete notes instantly with dynamic state updates.
-- **🛡️ Intelligent Rate Limiting**: Integrated **Upstash Redis** rate limiter protecting the server with a sliding window policy (10 requests per 20 seconds).
-- **🩹 Resilient Fallbacks**: If Upstash Redis is unreachable, the rate limiter fails gracefully so the application remains fully functional.
-- **🎨 Premium Dark Theme UI**: A beautiful user interface using CSS radial-gradients, glassmorphism, responsive grid layouts, and custom-styled notes cards.
-- **🔔 Interactive Toast Notifications**: Fluid alert toasts using `react-hot-toast` for success and error actions.
-- **⚡ Fast HMR & Navigation**: Powered by **Vite** and **React Router v7** for instantaneous routing and smooth page transitions.
+A MERN stack note-taking application designed for organizing and managing thoughts. It features a responsive UI, complete CRUD capabilities, and robust API rate limiting under Redis caching.
 
 ---
-
-## 🛠️ Technology Stack
-
-### Frontend
-- **Framework**: React 19 (Functional Components & Hooks)
-- **Routing**: React Router v7 / React Router DOM
-- **Styling**: Tailwind CSS v3 & DaisyUI v4
-- **Icons**: Lucide React
-- **HTTP Client**: Axios
-- **Notifications**: React Hot Toast
-- **Build Tool**: Vite
-
-### Backend
-- **Server Framework**: Express (Node.js)
-- **Database**: MongoDB (via Mongoose ODM)
-- **In-Memory Cache & Limiting**: Upstash Redis & Upstash Rate Limiter
-- **Environment Management**: Dotenv
-- **Cross-Origin Resource Sharing**: CORS
+## Highlights
+1. Modern responsive dark UI
+2. Full CRUD capability with database persistence
+3. Server-side rate limiting protection
 
 ---
+## Features
+### Core Application
+1. Create, view, update, and delete notes dynamically
+2. Interactive toast alerts for success and error feedbacks
 
-## 📂 Project Structure
-
-```
-Mernthinkboard/
-├── backend/
-│   ├── src/
-│   │   ├── config/          # Database & Upstash Redis configs
-│   │   ├── controllers/     # Controller logic for Notes API
-│   │   ├── middleware/      # Express middlewares (e.g. rate limiters)
-│   │   ├── models/          # Mongoose schema models
-│   │   ├── routes/          # Express route definitions
-│   │   └── server.js        # Backend entry point
-│   ├── .env                 # Environment variables config (local only)
-│   └── package.json         # Backend dependencies & scripts
-│
-└── frontend/
-    ├── src/
-    │   ├── assets/          # Static assets & styles
-    │   ├── Components/      # Reusable UI components (Navbar, NoteCard, etc.)
-    │   ├── lib/             # Axios instance & utility helpers
-    │   ├── Pages/           # Application views (HomePage, NoteDetail, createPage)
-    │   ├── App.jsx          # React main routes and background grid layout
-    │   └── main.jsx         # React application mounting point
-    ├── tailwind.config.js   # Tailwind design configuration
-    └── package.json         # Frontend dependencies & scripts
-```
+### Security and Infrastructure
+1. Custom Express API rate limiter using Upstash Redis
+2. Fail-safe middleware ensuring service continues if Redis drops offline
+3. CORS configuration for deployment hosting
 
 ---
-
-## 🚀 Getting Started
-
-Follow these steps to set up and run the project locally.
-
-### Prerequisites
-- **Node.js** (v18 or higher recommended)
-- **MongoDB** (local installation or MongoDB Atlas cluster URI)
-- **Upstash Account** (for Upstash Redis REST credentials)
+## Technology Stack
+- Frontend: React, React Router, Tailwind CSS, DaisyUI, Axios, Vite
+- Backend: Node.js, Express, MongoDB (Mongoose), Upstash Redis
 
 ---
+## Getting Started
 
-### 1. Setup Backend
-
-1. Navigate to the `backend` folder:
+### Local Backend Setup
+1. Navigate to directory and install dependencies:
    ```bash
    cd backend
-   ```
-2. Install dependencies:
-   ```bash
    npm install
    ```
-3. Create a `.env` file in the root of the `backend/` directory:
+2. Create `backend/.env` file:
    ```env
    PORT=5000
-   Mongo_uri=your_mongodb_connection_uri
-   UPSTASH_REDIS_REST_URL=your_upstash_redis_rest_url
-   UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_rest_token
+   MONGO_URI=your_mongodb_uri
+   UPSTASH_REDIS_REST_URL=your_upstash_redis_url
+   UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token
    ```
-4. Start the development server (runs nodemon):
+3. Start the dev server:
    ```bash
    npm run dev
    ```
 
----
-
-### 2. Setup Frontend
-
-1. Navigate to the `frontend` folder:
+### Local Frontend Setup
+1. Navigate to directory and install dependencies:
    ```bash
-   cd ../frontend
-   ```
-2. Install dependencies:
-   ```bash
+   cd frontend
    npm install
    ```
-3. Start the Vite development server:
+2. Create `frontend/.env` file:
+   ```env
+   VITE_API_URL=http://localhost:5000/api
+   ```
+3. Start the Vite server:
    ```bash
    npm run dev
    ```
-4. Open your browser and navigate to `http://localhost:5173`.
 
 ---
-
-## 🔌 API Documentation
-
-All API requests are routed through `/api/notes`.
+## API Endpoints
+All requests route through `/api/notes`.
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| **GET** | `/api/notes` | Fetches all notes, sorted by newest first |
-| **GET** | `/api/notes/:id` | Fetches details of a single note by its ID |
-| **POST** | `/api/notes` | Creates a new note |
-| **PUT** | `/api/notes/:id` | Updates title or content of an existing note |
-| **DELETE** | `/api/notes/:id` | Deletes a note by its ID |
-
----
-
-## 🔒 Security & Optimization
-
-ThinkBoard implements a custom Express rate limiter using `@upstash/ratelimit` (sliding window of **10 requests per 20 seconds**). 
-
-- **Hardened Security**: Prevents spamming notes creation and edits.
-- **Robust Failure Resilience**: If the Redis REST connection fails or rate limit quotas are exceeded on your cloud instance, the server logs `Rate Limit Error (Redis unreachable)` but continues serving the requests without interruption.
-- **Frontend Interactivity**: Displays a custom visual overlay (`RateLimitedUI`) informing the user when they have hit the rate limit threshold.
+| GET | `/api/notes` | Fetch all notes (sorted by newest) |
+| GET | `/api/notes/:id` | Fetch a single note by ID |
+| POST | `/api/notes` | Create a new note |
+| PUT | `/api/notes/:id` | Update an existing note |
+| DELETE | `/api/notes/:id` | Delete a note by ID |
