@@ -2,6 +2,10 @@
 
 A MERN stack note-taking application designed for organizing and managing thoughts. It features a responsive UI, complete CRUD capabilities, and robust API rate limiting under Redis caching.
 
+
+Try the Application here :https://thinkk-board.vercel.app/
+
+
 ---
 ## Highlights
 1. Modern responsive dark UI
