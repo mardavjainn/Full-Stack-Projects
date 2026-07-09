@@ -13,7 +13,7 @@ const app = express();
 app.use(cors({
     origin: "http://localhost:5173",
 }));
-app.use(express.json());
+app.use(express.json()) ;
 app.use(rateLimiter); 
 // app.use((req, res, next) => {
 //     console.log(`Req method is ${req.method} and req url is ${req.url}`);
